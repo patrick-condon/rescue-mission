@@ -5,17 +5,6 @@ class AnswersController < ApplicationController
     @answers = Answer.order(updated_at: :desc)
   end
 
-  def show
-    @answer = Answer.find_by(id: params[:id])
-    @question = @answer.question
-    if @question.answers
-      @answers = @question.answers
-    else
-      @answers = []
-    end
-    @errors = []
-  end
-
   def new
     @question = Question.find(params[:question_id])
     @answer = Answer.new

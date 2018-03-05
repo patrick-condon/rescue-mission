@@ -2,6 +2,10 @@
 
 <h1><%= @question.title %></h1>
 <p><%= @question.description %></p>
+
+<%= link_to 'Edit Question', edit_question_path(@question) %>
+<%= link_to 'Delete Article', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'} %>
+
 <% if @errors != [] %>
   <ul class="error">
     <% @errors.each do |error| %>
@@ -9,6 +13,7 @@
     <% end %>
   </ul>
 <% end %>
+
 <%= form_for [@question, @answer] do |f| %>
   <div class="field">
     <%= f.label :Answer_the_Question %><br />

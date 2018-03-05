@@ -1,0 +1,25 @@
+<h1>Edit Question</h1>
+<% if @errors != [] %>
+   <ul class="error">
+     <% @errors.each do |error| %>
+      <h3><%= error %></h3>
+      <% end %>
+   </ul>
+ <% end %>
+
+
+<%= form_for @question do |f| %>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
