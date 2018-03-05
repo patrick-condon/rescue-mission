@@ -5,6 +5,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find_by(id: params[:id])
+    @answers = @question.answers
+    @answer = Answer.new
     @errors = []
   end
 
