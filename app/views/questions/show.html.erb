@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @question.title %></h1>
-<p><%= @question.description %></p>
+<p><%= @question_description %></p>
 
 <%= link_to 'Edit Question', edit_question_path(@question) %>
 <%= link_to 'Delete Article', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'} %>
@@ -27,9 +27,9 @@
 
 <h1>Answers</h1>
 <ul id="answers-list">
-  <% @answers.each do |answer| %>
+  <% @answer_descriptions.each do |answer| %>
     <li>
-        <%= answer.description %>
+        <%= answer %>
     </li>
   <% end %>
 </ul>

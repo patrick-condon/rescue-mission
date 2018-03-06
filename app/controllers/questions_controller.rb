@@ -1,12 +1,24 @@
 require 'pry'
+require 'redcarpet'
+
 class QuestionsController < ApplicationController
   def index
     @questions = Question.order(updated_at: :desc)
   end
 
+  def markdown
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true,
+    lax_spacing: true, quote: true, fenced_code_blocks: true, strikethrough: true,
+    underline: true)
+  end
+
   def show
     @question = Question.find_by(id: params[:id])
+    @question_description = markdown.render(@question.description).html_safe
     @answers = @question.answers
+    @answer_descriptions = @answers.map do |a|
+      markdown.render(a.description).html_safe
+    end
     @answer = Answer.new
     @errors = []
   end
