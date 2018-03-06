@@ -6,12 +6,6 @@ class QuestionsController < ApplicationController
     @questions = Question.order(updated_at: :desc)
   end
 
-  def markdown
-    Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true,
-    lax_spacing: true, quote: true, fenced_code_blocks: true, strikethrough: true,
-    underline: true)
-  end
-
   def show
     @question = Question.find_by(id: params[:id])
     @question_description = markdown.render(@question.description).html_safe
@@ -24,13 +18,12 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    @title = "New Question"
     @question = Question.new
-    @errors =[]
   end
 
   def edit
     @question = Question.find(params[:id])
-    @errors = []
   end
 
   def update
@@ -39,7 +32,6 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       redirect_to @question, notice: 'Question was successfully updated.'
     else
-      @errors = @question.errors.full_messages
       render :edit
     end
   end
@@ -50,6 +42,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: 'Question was successfully created.'
     else
+      @title = 'New Question'
       @errors = @question.errors.full_messages
       render :new
     end
@@ -70,6 +63,12 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :description)
+  end
+
+  def markdown
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true,
+      lax_spacing: true, quote: true, fenced_code_blocks: true, strikethrough: true,
+      underline: true)
   end
 
 end

@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<div class="main-focus">
 <h1><%= @question.title %></h1>
 <p><%= @question_description %></p>
 
@@ -17,7 +17,7 @@
 <%= form_for [@question, @answer] do |f| %>
   <div class="field">
     <%= f.label :Answer_the_Question %><br />
-    <%= f.text_field :description %>
+    <%= f.text_area :description %>
   </div>
 
   <div class="actions">
@@ -35,3 +35,4 @@
 </ul>
 
 <%= link_to 'Back', questions_path %>
+</div>

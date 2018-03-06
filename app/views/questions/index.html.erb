@@ -1,11 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="main-focus">
+  <p id="notice"><%= notice %></p>
 
-<h1>Questions</h1>
-<ul id="questions-list">
-  <% @questions.each do |question| %>
-    <li>
-        <h3><%= link_to question.title, question %></h3>
-    </li>
-  <% end %>
-</ul>
-<h3><%= link_to 'Ask a Question', new_question_path %>
+  <h1>Questions</h1>
+  <ul id="questions-list">
+    <% @questions.each do |question| %>
+      <li class="question-link">
+          <h3><%= link_to question.title, question %></h3>
+      </li>
+    <% end %>
+  </ul>
+  <div class="footer">
+    <h3><%= link_to 'Ask a Question', new_question_path %>
+  </div>
+
+</div>
