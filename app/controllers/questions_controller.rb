@@ -9,9 +9,14 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find_by(id: params[:id])
     @question_description = markdown.render(@question.description).html_safe
-    @answers = @question.answers
-    @answer_descriptions = @answers.map do |a|
-      markdown.render(a.description).html_safe
+    @answers = []
+    @best_answer = nil
+    @question.answers.order(:created_at).each do |a|
+      if a.best == true
+        @best_answer = markdown.render(a.description).html_safe
+      else
+       @answers << {description: markdown.render(a.description).html_safe, id: a.id}
+     end
     end
     @answer = Answer.new
     @errors = []

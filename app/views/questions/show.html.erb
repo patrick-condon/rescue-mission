@@ -1,38 +1,47 @@
 <p id="notice"><%= notice %></p>
 <div class="main-focus">
-<h1><%= @question.title %></h1>
-<p><%= @question_description %></p>
+  <div class="question-body">
+    <h1><%= @question.title %></h1>
+    <p><%= @question_description %></p>
 
-<%= link_to 'Edit Question', edit_question_path(@question) %>
-<%= link_to 'Delete Article', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'} %>
-
-<% if @errors != [] %>
-  <ul class="error">
-    <% @errors.each do |error| %>
-      <h3><%= error %></h3>
+    <%= link_to 'Edit Question', edit_question_path(@question) %>
+    <%= link_to 'Delete Article', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'} %>
+  </div>
+  <div class="answer-form">
+    <% if @errors != [] %>
+      <ul class="error">
+        <% @errors.each do |error| %>
+          <h3><%= error %></h3>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_for [@question, @answer] do |f| %>
-  <div class="field">
-    <%= f.label :Answer_the_Question %><br />
-    <%= f.text_area :description %>
+    <%= form_for [@question, @answer] do |f| %>
+      <div class="field">
+        <%= f.label :Answer_the_Question %><br />
+        <%= f.text_area :description %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="answers-block">
+    <h1>Answers</h1>
+    <h3>Click Answer to Select as 'Best'</h3>
+    <ul class="answers-list">
+      <% if @best_answer != nil %>
+      <li class="best-answer">
+        <%= @best_answer %>
+      </li>
+      <% end %>
+      <% @answers.each do |answer| %>
+        <li>
+            <%= link_to answer[:description], question_answer_path(@question, answer[:id]), :method=> :patch %>
+        </li>
+      <% end %>
+    </ul>
   </div>
-<% end %>
-
-<h1>Answers</h1>
-<ul id="answers-list">
-  <% @answer_descriptions.each do |answer| %>
-    <li>
-        <%= answer %>
-    </li>
-  <% end %>
-</ul>
-
 <%= link_to 'Back', questions_path %>
 </div>
