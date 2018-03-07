@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
         @best_answer = markdown.render(a.description).html_safe
       else
        @answers << {description: markdown.render(a.description).html_safe, id: a.id}
-     end
+      end
     end
     @answer = Answer.new
     @errors = []
@@ -32,7 +32,6 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    # binding.pry
     @question = Question.find(params[:id])
     if @question.update(question_params)
       redirect_to @question, notice: 'Question was successfully updated.'

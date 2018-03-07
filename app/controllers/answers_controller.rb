@@ -7,18 +7,13 @@ class AnswersController < ApplicationController
 
   def update
     @question = Question.find(params[:question_id])
-    @current_best = nil
-    @question.answers.each do |answer|
-      if answer.best == true
-        @current_best = answer
-      end
-    end
+    @current_best = @question.answers.find_by(best: true)
     @new_best = Answer.find(params[:id])
     if @current_best != nil
       @current_best.update(best: false)
     end
     @new_best.update(best: true)
-    redirect_to @question
+    redirect_to @question, notice: 'Best Answer Selected'
   end
 
   def create
