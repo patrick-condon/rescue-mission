@@ -21,6 +21,9 @@
         <%= f.label :Answer_the_Question %><br />
         <%= f.text_area :description %>
       </div>
+      <div class="hidden-field">
+        <%= f.hidden_field :best, :value => false %>
+      </div>
 
       <div class="actions">
         <%= f.submit %>
